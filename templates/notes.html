@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Notes</h2>
+  {% if notes %}
+    <ul>
+      {% for note in notes %}
+        <li>
+          <strong>{{ note.title }}</strong>
+          <div>{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+          <p>{{ note.content[:200] }}{% if note.content|length > 200 %}...{% endif %}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No notes yet — create your first note.</p>
+  {% endif %}
+{% endblock %}

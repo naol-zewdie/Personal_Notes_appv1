@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome to My Notes App</h2>
+  <p>Phase 2: Flask app routes and templates are set up.</p>
+  <ul>
+    <li><a href="{{ url_for('notes') }}">View Notes</a></li>
+    <li><a href="{{ url_for('create') }}">Create Note</a></li>
+    <li><a href="{{ url_for('learn') }}">Learn Flask</a></li>
+  </ul>
+{% endblock %}

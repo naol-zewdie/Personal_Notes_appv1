@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Create Note</h2>
+  {% if error %}
+    <p style="color: red">{{ error }}</p>
+  {% endif %}
+  <form method="post">
+    <label>Title<br>
+      <input name="title" type="text" required value="{{ form_title or '' }}">
+    </label>
+    <br>
+    <label>Content<br>
+      <textarea name="content" rows="6">{{ form_content or '' }}</textarea>
+    </label>
+    <br>
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}
