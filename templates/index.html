@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Welcome to My Notes App</h2>
-  <p>Phase 2: Flask app routes and templates are set up.</p>
-  <ul>
-    <li><a href="{{ url_for('notes') }}">View Notes</a></li>
-    <li><a href="{{ url_for('create') }}">Create Note</a></li>
-    <li><a href="{{ url_for('learn') }}">Learn Flask</a></li>
-  </ul>
+  <h2>Recent Notes</h2>
+  {% if notes %}
+    <ul class="notes-grid">
+      {% for note in notes %}
+        <li>
+          <article class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+              <h3 style="margin:0"><a href="{{ url_for('note', note_id=note.id) }}">{{ note.title }}</a></h3>
+              <div>
+                <form method="post" action="{{ url_for('favorite_toggle', note_id=note.id) }}" style="display:inline">
+                  <button class="btn" type="submit" title="Toggle favorite">{% if note.favorite %}⭐{% else %}☆{% endif %}</button>
+                </form>
+              </div>
+            </div>
+            <div class="meta">{% if note.category %}<strong>[{{ note.category }}]</strong> {% endif %}<small>Created {{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</small></div>
+            <p>{{ note.content[:200] }}{% if note.content|length > 200 %}...{% endif %}</p>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No notes yet — <a href="{{ url_for('create') }}">create one</a>.</p>
+  {% endif %}
+
+  <hr>
+  <p>
+    <a href="{{ url_for('notes') }}">All Notes</a> |
+    <a href="{{ url_for('create') }}">Create Note</a> |
+    <a href="{{ url_for('learn') }}">Learn Flask</a>
+  </p>
 {% endblock %}

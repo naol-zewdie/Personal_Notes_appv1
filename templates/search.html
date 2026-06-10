@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Search results for "{{ q }}"</h2>
+
+  {% if q == '' %}
+    <p>Enter a search term above to find notes by title or content.</p>
+  {% else %}
+    {% if results %}
+      <ul class="notes-grid">
+        {% for note in results %}
+          <li>
+            <article class="card">
+              <h3><a href="{{ url_for('note', note_id=note.id) }}">{{ note.title }}</a></h3>
+              <div class="meta">{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+              <p>{{ note.content[:200] }}{% if note.content|length > 200 %}...{% endif %}</p>
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No results for "{{ q }}".</p>
+    {% endif %}
+  {% endif %}
+
+{% endblock %}

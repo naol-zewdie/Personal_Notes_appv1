@@ -5,18 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title or 'Personal Notes App' }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
   </head>
   <body>
-    <header>
-      <h1><a href="{{ url_for('index') }}">My Notes App</a></h1>
-      <nav>
-        <a href="{{ url_for('notes') }}">Notes</a> |
-        <a href="{{ url_for('create') }}">Create</a> |
-        <a href="{{ url_for('learn') }}">Learn</a>
-      </nav>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="brand"><a href="{{ url_for('index') }}">My Notes App</a></h1>
+        <nav class="navbar">
+          <a class="nav-link" href="{{ url_for('notes') }}">Notes</a>
+          <a class="nav-link" href="{{ url_for('create') }}">Create</a>
+          <a class="nav-link" href="{{ url_for('learn') }}">Learn</a>
+        </nav>
+
+        <form class="search-form" method="get" action="{{ url_for('search') }}">
+          <input class="form-control search-input" name="q" type="search" placeholder="Search notes..." value="{{ request.args.get('q','') }}">
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </div>
     </header>
-    <main>
+
+    <main class="container">
       {% block content %}{% endblock %}
     </main>
+
+    <footer>
+      <div class="container">
+        <small>&copy; {{ current_year or "" }} My Notes App — Built with Flask</small>
+      </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
   </body>
 </html>

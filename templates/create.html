@@ -7,13 +7,27 @@
   {% endif %}
   <form method="post">
     <label>Title<br>
-      <input name="title" type="text" required value="{{ form_title or '' }}">
+      <input class="form-control" name="title" type="text" required value="{{ form_title or '' }}">
+    </label>
+    <br>
+    <label>Category<br>
+      <select class="form-control" name="category">
+        <option value="" {% if not form_category %}selected{% endif %}>Uncategorized</option>
+        <option value="Work" {% if form_category == 'Work' %}selected{% endif %}>Work</option>
+        <option value="School" {% if form_category == 'School' %}selected{% endif %}>School</option>
+        <option value="Personal" {% if form_category == 'Personal' %}selected{% endif %}>Personal</option>
+        <option value="Ideas" {% if form_category == 'Ideas' %}selected{% endif %}>Ideas</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" name="favorite" {% if form_favorite %}checked{% endif %}> Favorite
     </label>
     <br>
     <label>Content<br>
-      <textarea name="content" rows="6">{{ form_content or '' }}</textarea>
+      <textarea class="form-control" name="content" rows="6">{{ form_content or '' }}</textarea>
     </label>
     <br>
-    <button type="submit">Save</button>
+    <button class="btn" type="submit">Save</button>
   </form>
 {% endblock %}

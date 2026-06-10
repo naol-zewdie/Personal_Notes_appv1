@@ -3,16 +3,25 @@
 {% block content %}
   <h2>Notes</h2>
   {% if notes %}
-    <ul>
+    <ul class="notes-grid">
       {% for note in notes %}
         <li>
-          <strong>{{ note.title }}</strong>
-          <div>{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
-          <p>{{ note.content[:200] }}{% if note.content|length > 200 %}...{% endif %}</p>
+          <article class="card">
+            <div class="meta">{% if note.category %}<strong>[{{ note.category }}]</strong> {% endif %}{{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+                    <h3 style="margin:0"><a href="{{ url_for('note', note_id=note.id) }}">{{ note.title }}</a></h3>
+                    <div>
+                      <form method="post" action="{{ url_for('favorite_toggle', note_id=note.id) }}" style="display:inline">
+                        <button class="btn" type="submit" title="Toggle favorite">{% if note.favorite %}⭐{% else %}☆{% endif %}</button>
+                      </form>
+                    </div>
+                  </div>
+            <p>{{ note.content[:200] }}{% if note.content|length > 200 %}...{% endif %}</p>
+          </article>
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>No notes yet — create your first note.</p>
+    <p>No notes yet — <a href="{{ url_for('create') }}">create one</a>.</p>
   {% endif %}
 {% endblock %}

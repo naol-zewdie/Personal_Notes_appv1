@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Edit Note</h2>
+  {% if error %}
+    <p style="color: red">{{ error }}</p>
+  {% endif %}
+  <form method="post">
+    <label>Title<br>
+      <input class="form-control" name="title" type="text" required value="{{ form_title or '' }}">
+    </label>
+    <br>
+    <label>Category<br>
+      <select class="form-control" name="category">
+        <option value="" {% if not form_category and not note.category %}selected{% endif %}>Uncategorized</option>
+        <option value="Work" {% if form_category == 'Work' or note.category == 'Work' %}selected{% endif %}>Work</option>
+        <option value="School" {% if form_category == 'School' or note.category == 'School' %}selected{% endif %}>School</option>
+        <option value="Personal" {% if form_category == 'Personal' or note.category == 'Personal' %}selected{% endif %}>Personal</option>
+        <option value="Ideas" {% if form_category == 'Ideas' or note.category == 'Ideas' %}selected{% endif %}>Ideas</option>
+      </select>
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" name="favorite" {% if form_favorite or note.favorite %}checked{% endif %}> Favorite
+    </label>
+    <br>
+    <label>Content<br>
+      <textarea class="form-control" name="content" rows="8">{{ form_content or note.content }}</textarea>
+    </label>
+    <br>
+    <button class="btn" type="submit">Save</button>
+    <a class="btn secondary" href="{{ url_for('note', note_id=note.id) }}">Cancel</a>
+  </form>
+{% endblock %}
