@@ -15,7 +15,18 @@
           <a class="nav-link" href="{{ url_for('notes') }}">Notes</a>
           <a class="nav-link" href="{{ url_for('create') }}">Create</a>
           <a class="nav-link" href="{{ url_for('learn') }}">Learn</a>
+          <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
         </nav>
+
+        <div class="auth-links">
+          {% if current_user.is_authenticated %}
+            <span class="nav-user">Hello, {{ current_user.username }}</span>
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+          {% endif %}
+        </div>
 
         <form class="search-form" method="get" action="{{ url_for('search') }}">
           <input class="form-control search-input" name="q" type="search" placeholder="Search notes..." value="{{ request.args.get('q','') }}">

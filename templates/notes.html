@@ -2,6 +2,12 @@
 
 {% block content %}
   <h2>Notes</h2>
+  <div class="controls">
+    <strong>Sort:</strong>
+    <a href="{{ url_for('notes', sort='newest') }}" {% if sort == 'newest' %}aria-current="true"{% endif %}>Newest</a> |
+    <a href="{{ url_for('notes', sort='oldest') }}" {% if sort == 'oldest' %}aria-current="true"{% endif %}>Oldest</a> |
+    <a href="{{ url_for('notes', sort='favorites') }}" {% if sort == 'favorites' %}aria-current="true"{% endif %}>Favorites</a>
+  </div>
   {% if notes %}
     <ul class="notes-grid">
       {% for note in notes %}

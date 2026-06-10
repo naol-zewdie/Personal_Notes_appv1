@@ -10,8 +10,8 @@
       {% endif %}
     </div>
     <hr>
-    <div>
-      {{ (note.content or '') | e | replace('\n', '<br>') | safe }}
+    <div class="note-content">
+      {{ note.content | markdown }}
     </div>
   </article>
   <p>

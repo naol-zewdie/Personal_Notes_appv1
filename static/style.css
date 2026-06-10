@@ -58,6 +58,13 @@ footer {
   padding: 0;
   margin: 0;
 }
+.controls { margin: 0.5rem 0 1rem 0; }
+.controls a[aria-current="true"] { font-weight: 700; color: #0b5fff; }
+
+/* dashboard stats */
+.stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.stats .card { flex: 1 1 200px; text-align: center; }
+.large { font-size: 2rem; font-weight: 700; margin: 0.25rem 0; }
 .card {
   background: #fff;
   border: 1px solid #e6e9ef;
